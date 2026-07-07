@@ -141,6 +141,55 @@
   .portfolio-card p { font-size: 14px; color: #B7BFCB; margin-bottom: 14px; }
   .portfolio-metric { font-size: 13px; color: #B8935F; font-weight: 600; }
 
+  /* ADDITIONAL SERVICES */
+  .addon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 900px) { .addon-grid { grid-template-columns: 1fr; } }
+
+  .addon-card {
+    background: #142640;
+    border: 1px solid rgba(184, 147, 95, 0.2);
+    border-radius: 6px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+  }
+  .addon-card h4 {
+    font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; margin-bottom: 10px;
+  }
+  .addon-card p {
+    font-size: 14px; color: #B7BFCB; margin-bottom: 18px; flex-grow: 1;
+  }
+  .addon-card .addon-card-price {
+    font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; color: #B8935F;
+  }
+  .addon-card .addon-card-price span {
+    font-size: 13px; color: #8B93A1; font-weight: 400;
+  }
+
+  /* RETAINER CALLOUT */
+  .retainer-box {
+    margin-top: 24px;
+    background: linear-gradient(135deg, #142640, #1A2E4D);
+    border: 1px solid #B8935F;
+    border-radius: 6px;
+    padding: 36px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .retainer-box h3 {
+    font-family: 'Fraunces', serif; font-size: 21px; font-weight: 600; margin-bottom: 8px;
+  }
+  .retainer-box p {
+    font-size: 14px; color: #B7BFCB; max-width: 480px;
+  }
+  .retainer-price {
+    font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600; white-space: nowrap;
+  }
+  .retainer-price span { font-size: 13px; color: #8B93A1; font-weight: 400; display: block; }
+
   /* FAQ */
   .faq-item { border-top: 1px solid rgba(184, 147, 95, 0.2); padding: 26px 0; }
   .faq-item:last-child { border-bottom: 1px solid rgba(184, 147, 95, 0.2); }
@@ -167,6 +216,7 @@
     <div class="nav-logo">Cobb Financial Analytics</div>
     <div class="nav-links">
       <a href="#packages">Packages</a>
+      <a href="#additional-services">Additional Services</a>
       <a href="#how-it-works">How It Works</a>
       <a href="#portfolio">Portfolio</a>
       <a href="#faq">FAQ</a>
@@ -265,6 +315,73 @@
     </div>
 
     <p class="scope-note">All packages cover financial analysis, modeling, and forecasting only. This is not personalized investment advice, tax preparation, or audit/attestation services. Pricing shown is a starting point — final pricing may vary based on business complexity and will always be confirmed with you before work begins.</p>
+  </div>
+</section>
+
+<section class="section" id="additional-services" style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">Additional Services</div>
+      <h2>À la carte support.</h2>
+      <p class="section-lead">Standalone services for specific needs — add one on its own, or pair it with a package above.</p>
+    </div>
+
+    <div class="addon-grid">
+
+      <div class="addon-card">
+        <h4>Business Plan</h4>
+        <p>A complete business plan built around real financial modeling — not just narrative. Includes market overview, revenue model, and financial projections.</p>
+        <div class="addon-card-price">$650</div>
+      </div>
+
+      <div class="addon-card">
+        <h4>Break-Even &amp; Pricing Analysis</h4>
+        <p>Find your break-even point and the right price for your product or service based on costs, margins, and volume targets.</p>
+        <div class="addon-card-price">$225</div>
+      </div>
+
+      <div class="addon-card">
+        <h4>Cash Flow Dashboard Setup</h4>
+        <p>A rolling cash flow tracker so you can see money in and out weeks ahead, built in Excel or Google Sheets.</p>
+        <div class="addon-card-price">$350</div>
+      </div>
+
+      <div class="addon-card">
+        <h4>Loan &amp; Funding Readiness Package</h4>
+        <p>Organized, lender- and investor-ready financial documentation to support a loan application or funding round.</p>
+        <div class="addon-card-price">$500</div>
+      </div>
+
+      <div class="addon-card">
+        <h4>Grant Financial Narrative Support</h4>
+        <p>Financial justification and budget narrative writing for grant applications — built from nonprofit and community healthcare finance experience.</p>
+        <div class="addon-card-price">$300</div>
+      </div>
+
+      <div class="addon-card">
+        <h4>SaaS Metrics Analysis</h4>
+        <p>MRR, churn, LTV:CAC, and subscription health analysis for SaaS and subscription-based businesses.</p>
+        <div class="addon-card-price">$400</div>
+      </div>
+
+      <div class="addon-card">
+        <h4>Competitor Financial Benchmarking</h4>
+        <p>See how your margins, pricing, and financial ratios stack up against public competitors in your industry.</p>
+        <div class="addon-card-price">$300</div>
+      </div>
+
+    </div>
+
+    <div class="retainer-box">
+      <div>
+        <h3>Fractional Analyst — Monthly Retainer</h3>
+        <p>Ongoing monthly support: ongoing dashboard updates, forecast refreshes, and a standing check-in call — like having a part-time analyst on retainer.</p>
+      </div>
+      <div class="retainer-price">$450<span>per month</span></div>
+      <a href="mailto:karlijc92@gmail.com" class="plan-btn" style="width:220px;">Inquire</a>
+    </div>
+
+    <p class="scope-note">Additional services listed here are standalone offerings and are not personalized investment, tax, or legal advice. Final scope and pricing are confirmed before work begins.</p>
   </div>
 </section>
 
