@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Started — Cobb Financial Analytics</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0F1E33;
+    color: #F5F1E8;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  a { color: #B8935F; }
+
+  .wrap { max-width: 640px; margin: 0 auto; padding: 60px 24px 100px 24px; }
+
+  .back-link { font-size: 13px; color: #8B93A1; display: inline-block; margin-bottom: 30px; }
+  .back-link:hover { color: #B8935F; }
+
+  .header-eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 3px; color: #B8935F; text-transform: uppercase; margin-bottom: 14px; }
+  h1 { font-family: 'Fraunces', serif; font-size: 34px; font-weight: 600; margin-bottom: 8px; }
+  .package-price { font-family: 'Fraunces', serif; font-size: 20px; color: #B8935F; margin-bottom: 34px; }
+
+  form { display: flex; flex-direction: column; gap: 22px; }
+
+  .field label {
+    display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #F5F1E8;
+  }
+  .field .required-mark { color: #B8935F; margin-left: 2px; }
+
+  .field input[type="text"],
+  .field input[type="email"],
+  .field input[type="tel"],
+  .field textarea,
+  .field select {
+    width: 100%;
+    background: #142640;
+    border: 1px solid rgba(184, 147, 95, 0.3);
+    border-radius: 4px;
+    padding: 12px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #F5F1E8;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    outline: none; border-color: #B8935F;
+  }
+  .field textarea { min-height: 100px; resize: vertical; }
+
+  .field input[type="file"] {
+    width: 100%;
+    background: #142640;
+    border: 1px dashed rgba(184, 147, 95, 0.4);
+    border-radius: 4px;
+    padding: 16px 14px;
+    font-size: 13px;
+    color: #B7BFCB;
+  }
+
+  .field-hint { font-size: 12px; color: #8B93A1; margin-top: 6px; }
+
+  .submit-btn {
+    background: #B8935F; color: #0F1E33; border: none; border-radius: 4px;
+    padding: 16px; font-weight: 700; font-size: 15px; cursor: pointer; margin-top: 10px;
+  }
+  .submit-btn:hover { opacity: 0.9; }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .error-banner {
+    background: rgba(200, 80, 80, 0.12); border: 1px solid rgba(200, 80, 80, 0.4);
+    color: #E8A5A5; padding: 14px 16px; border-radius: 4px; font-size: 14px; margin-bottom: 20px; display: none;
+  }
+
+  .state-message {
+    text-align: center; padding: 100px 24px;
+  }
+  .state-message h2 { font-family: 'Fraunces', serif; font-size: 26px; margin-bottom: 12px; }
+  .state-message p { color: #B7BFCB; font-size: 15px; }
+
+  .spinner {
+    border: 3px solid rgba(184, 147, 95, 0.2); border-top-color: #B8935F;
+    border-radius: 50%; width: 28px; height: 28px; animation: spin 0.8s linear infinite;
+    margin: 0 auto 20px auto;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div class="wrap" id="app">
+  <div class="state-message">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+</div>
+
+<script type="module">
+  import { supabase } from './supabaseClient.js';
+  import { packages } from './packages.config.js';
+
+  const app = document.getElementById('app');
+  const params = new URLSearchParams(window.location.search);
+  const packageId = params.get('package');
+  const pkg = packages[packageId];
+
+  function renderError(message) {
+    app.innerHTML = `
+      <div class="state-message">
+        <h2>Something's not right</h2>
+        <p>${message}</p>
+        <p style="margin-top:20px;"><a href="/index.html#packages">← Back to packages</a></p>
+      </div>
+    `;
+  }
+
+  function fieldHTML(field) {
+    const requiredAttr = field.required ? 'required' : '';
+    const requiredMark = field.required ? '<span class="required-mark">*</span>' : '';
+
+    let inputHTML = '';
+    switch (field.type) {
+      case 'textarea':
+        inputHTML = `<textarea id="${field.id}" name="${field.id}" ${requiredAttr}></textarea>`;
+        break;
+      case 'select':
+        const options = (field.options || [])
+          .map(opt => `<option value="${opt}">${opt}</option>`)
+          .join('');
+        inputHTML = `<select id="${field.id}" name="${field.id}" ${requiredAttr}>
+          <option value="" disabled selected>Select one</option>
+          ${options}
+        </select>`;
+        break;
+      case 'file':
+        inputHTML = `<input type="file" id="${field.id}" name="${field.id}" ${field.multiple ? 'multiple' : ''} ${requiredAttr} />`;
+        break;
+      case 'email':
+      case 'tel':
+      case 'text':
+      default:
+        inputHTML = `<input type="${field.type || 'text'}" id="${field.id}" name="${field.id}" ${requiredAttr} />`;
+    }
+
+    return `
+      <div class="field">
+        <label for="${field.id}">${field.label}${requiredMark}</label>
+        ${inputHTML}
+      </div>
+    `;
+  }
+
+  function renderForm() {
+    const fieldsHTML = pkg.fields.map(fieldHTML).join('');
+
+    app.innerHTML = `
+      <a href="/index.html#packages" class="back-link">← Back to packages</a>
+      <div class="header-eyebrow">Get Started</div>
+      <h1>${pkg.name}</h1>
+      <div class="package-price">${pkg.price}</div>
+
+      <div class="error-banner" id="errorBanner"></div>
+
+      <form id="intakeForm">
+        ${fieldsHTML}
+        <button type="submit" class="submit-btn" id="submitBtn">Continue to Payment →</button>
+      </form>
+    `;
+
+    document.getElementById('intakeForm').addEventListener('submit', handleSubmit);
+  }
+
+  function renderSubmitting() {
+    app.innerHTML = `
+      <div class="state-message">
+        <div class="spinner"></div>
+        <h2>Submitting your information...</h2>
+        <p>This will just take a moment. Please don't close this page.</p>
+      </div>
+    `;
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const errorBanner = document.getElementById('errorBanner');
+    errorBanner.style.display = 'none';
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+
+    try {
+      const formData = {};
+      let businessName = '';
+      const filePaths = [];
+
+      for (const field of pkg.fields) {
+        if (field.type === 'file') {
+          const input = document.getElementById(field.id);
+          const files = input.files;
+          if (files && files.length > 0) {
+            for (const file of files) {
+              const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+              const path = `${packageId}/${Date.now()}-${safeName}`;
+              const { error: uploadError } = await supabase
+                .storage
+                .from('intake-files')
+                .upload(path, file);
+              if (uploadError) throw new Error(`File upload failed: ${uploadError.message}`);
+              filePaths.push(path);
+            }
+          }
+        } else {
+          const input = document.getElementById(field.id);
+          formData[field.id] = input.value;
+          if (field.id === 'business_name') businessName = input.value;
+        }
+      }
+
+      const { error: insertError } = await supabase
+        .from('submissions')
+        .insert({
+          package_id: packageId,
+          package_name: pkg.name,
+          package_price: pkg.price,
+          business_name: businessName,
+          form_data: formData,
+          file_paths: filePaths,
+          status: 'submitted'
+        });
+
+      if (insertError) throw new Error(`Could not save your submission: ${insertError.message}`);
+
+      renderSubmitting();
+      setTimeout(() => {
+        window.location.href = pkg.stripeLink;
+      }, 800);
+
+    } catch (err) {
+      renderForm();
+      const banner = document.getElementById('errorBanner');
+      banner.textContent = err.message || 'Something went wrong. Please try again.';
+      banner.style.display = 'block';
+    }
+  }
+
+  // Init
+  if (!packageId || !pkg) {
+    renderError("We couldn't find that package. Please go back and choose one from the pricing page.");
+  } else {
+    renderForm();
+  }
+</script>
+
+</body>
+</html>
