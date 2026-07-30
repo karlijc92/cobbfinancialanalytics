@@ -222,7 +222,7 @@
         }
       }
 
-      const { error: insertError } = await supabase
+      const { data: insertedRow, error: insertError } = await supabase
         .from('submissions')
         .insert({
           package_id: packageId,
@@ -231,14 +231,18 @@
           business_name: businessName,
           form_data: formData,
           file_paths: filePaths,
-          status: 'submitted'
-        });
+          status: 'submitted',
+          payment_status: 'pending'
+        })
+        .select()
+        .single();
 
       if (insertError) throw new Error(`Could not save your submission: ${insertError.message}`);
 
       renderSubmitting();
+      const paymentUrl = `${pkg.stripeLink}?client_reference_id=${insertedRow.id}`;
       setTimeout(() => {
-        window.location.href = pkg.stripeLink;
+        window.location.href = paymentUrl;
       }, 800);
 
     } catch (err) {
