@@ -12,6 +12,7 @@ export const packages = {
     price: "$275",
     stripeLink: "https://buy.stripe.com/14AcN6c8J0K60ii7fNeME0v",
     fields: [
+      { id: "client_email", label: "Email Address", type: "email", required: true },
       { id: "business_name", label: "Business Name", type: "text", required: true },
       { id: "business_overview", label: "Brief description of your business", type: "textarea", required: true },
       { id: "specific_questions", label: "Specific questions or concerns you want addressed", type: "textarea", required: false },
@@ -24,6 +25,7 @@ export const packages = {
     price: "$750",
     stripeLink: "https://buy.stripe.com/fZubJ22y9csOc10gQneME0u",
     fields: [
+      { id: "client_email", label: "Email Address", type: "email", required: true },
       { id: "business_name", label: "Business Name", type: "text", required: true },
       { id: "valuation_purpose", label: "Purpose of this valuation", type: "select", required: true,
         options: ["Raising funding", "Selling the business", "Internal planning", "Litigation/legal", "Other"] },
@@ -38,6 +40,7 @@ export const packages = {
     price: "$1,450",
     stripeLink: "https://buy.stripe.com/6oUbJ2goZ8cy9SSgQneME0t",
     fields: [
+      { id: "client_email", label: "Email Address", type: "email", required: true },
       { id: "business_name", label: "Business Name", type: "text", required: true },
       { id: "goals", label: "What are you trying to accomplish with this package?", type: "textarea", required: true },
       { id: "timeline", label: "Any deadline we should know about", type: "text", required: false },
@@ -50,6 +53,7 @@ export const packages = {
     price: "$650",
     stripeLink: "https://buy.stripe.com/eVq9AUc8J3Wi8OOcA7eME0s",
     fields: [
+      { id: "client_email", label: "Email Address", type: "email", required: true },
       { id: "business_name", label: "Business Name", type: "text", required: true },
       { id: "business_concept", label: "Describe your business concept, product, or service", type: "textarea", required: true },
       { id: "target_market", label: "Who is your target market?", type: "textarea", required: true },
@@ -63,6 +67,7 @@ export const packages = {
     price: "$225",
     stripeLink: "https://buy.stripe.com/fZucN68Wx8cyaWW8jReME0r",
     fields: [
+      { id: "client_email", label: "Email Address", type: "email", required: true },
       { id: "business_name", label: "Business Name", type: "text", required: true },
       { id: "product_description", label: "Describe the product/service being priced", type: "textarea", required: true },
       { id: "current_pricing", label: "Current pricing (if any)", type: "text", required: false },
@@ -76,6 +81,7 @@ export const packages = {
     price: "$350",
     stripeLink: "https://buy.stripe.com/6oU7sM8WxgJ4e982ZxeME0q",
     fields: [
+      { id: "client_email", label: "Email Address", type: "email", required: true },
       { id: "business_name", label: "Business Name", type: "text", required: true },
       { id: "current_software", label: "What software/tools do you currently use for bookkeeping? (QuickBooks, spreadsheet, none, etc.)", type: "text", required: true },
       { id: "priority_metrics", label: "What metrics/categories matter most to you?", type: "textarea", required: false },
@@ -88,6 +94,7 @@ export const packages = {
     price: "$500",
     stripeLink: "https://buy.stripe.com/5kQ8wQ7St3Wie98cA7eME0p",
     fields: [
+      { id: "client_email", label: "Email Address", type: "email", required: true },
       { id: "business_name", label: "Business Name", type: "text", required: true },
       { id: "funding_amount", label: "Amount of funding/loan you're seeking", type: "text", required: true },
       { id: "funding_purpose", label: "What will the funding be used for?", type: "textarea", required: true },
@@ -101,6 +108,7 @@ export const packages = {
     price: "$300",
     stripeLink: "https://buy.stripe.com/7sY00k6OpeAW0iieIfeME0o",
     fields: [
+      { id: "client_email", label: "Email Address", type: "email", required: true },
       { id: "business_name", label: "Business/Organization Name", type: "text", required: true },
       { id: "grant_name", label: "Name of the grant and funder", type: "text", required: true },
       { id: "deadline", label: "Application deadline", type: "text", required: true },
@@ -114,6 +122,7 @@ export const packages = {
     price: "$400",
     stripeLink: "https://buy.stripe.com/9B6fZi4GhfF02qq0RpeME0n",
     fields: [
+      { id: "client_email", label: "Email Address", type: "email", required: true },
       { id: "business_name", label: "Business Name", type: "text", required: true },
       { id: "current_mrr", label: "Current MRR (approximate is fine)", type: "text", required: false },
       { id: "pricing_tiers", label: "Describe your pricing tiers", type: "textarea", required: false },
@@ -127,6 +136,7 @@ export const packages = {
     price: "$300",
     stripeLink: "https://buy.stripe.com/8x214o5Kl8cy3uu6bJeME0m",
     fields: [
+      { id: "client_email", label: "Email Address", type: "email", required: true },
       { id: "business_name", label: "Business Name", type: "text", required: true },
       { id: "competitors", label: "List the competitors you want benchmarked (names, websites if public)", type: "textarea", required: true },
       { id: "industry", label: "Industry/sector", type: "text", required: true },
